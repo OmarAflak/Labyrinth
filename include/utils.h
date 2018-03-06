@@ -9,5 +9,6 @@
 
 bool read_file(const char* filename, std::vector<std::string> &lines);
 bool read_labyrinth(const char* filename, std::vector<std::vector<Node> > &nodes);
+void free_memory(std::vector<std::vector<Node> > &nodes);
 
 #endif
