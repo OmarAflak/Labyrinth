@@ -1,34 +1,4 @@
-#include <iostream>
-#include <fstream>
-#include <vector>
-
-struct Neighbor{
-	int i;
-	int j;
-	Neighbor* next;
-
-	Neighbor(){
-		this->next = NULL;
-	}
-
-	Neighbor(int i, int j, Neighbor* next){
-		this->i = i;
-		this->j = j;
-		this->next = next;
-	}
-};
-
-struct Node{
-	int neighbors;
-	Neighbor* first;
-	bool processed;
-
-	Node(){
-		this->neighbors = 0;
-		this->first = NULL;
-		this->processed = false;
-	}
-};
+#include "../include/utils.h"
 
 bool read_file(const char* filename, std::vector<std::string> &lines){
 	std::ifstream file(filename);
@@ -95,20 +65,4 @@ bool read_labyrinth(const char* filename, std::vector<std::vector<Node> > &nodes
 		return true;
 	}
 	return false;
-}
-
-int main(){
-	std::vector<std::vector<Node> > nodes;
-	if(read_labyrinth("labyrinth", nodes)){
-		for(int i=0 ; i<nodes.size() ; i++){
-			for(int j=0 ; j<nodes[i].size() ; j++){
-				std::cout << "[" << i << "][" << j << "] : " << nodes[i][j].neighbors << std::endl;
-				Neighbor* nb = nodes[i][j].first;
-				while(nb!=NULL){
-					std::cout << "\t[" << nb->i << "][" << nb->j << "]" << std::endl;
-					nb = nb->next;
-				}
-			}
-		}
-	}
 }
