@@ -4,7 +4,7 @@
 
 #include "../include/utils.h"
 
-int main(){
+int main(int argc, char const *argv[]) {
 	std::vector<std::vector<Node> > nodes;
 	if(read_labyrinth("data/labyrinth", nodes)){
 		for(int i=0 ; i<nodes.size() ; i++){
@@ -18,4 +18,5 @@ int main(){
 			}
 		}
 	}
+	return 0;
 }
