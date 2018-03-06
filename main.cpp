@@ -81,7 +81,8 @@ bool read_labyrinth(const char* filename, std::vector<std::vector<Node> > &nodes
 					nodes[x][y].first = new Neighbor(nbs[0].i, nbs[0].j, nbs[0].next);
 					Neighbor* last = nodes[x][y].first;
 					for(int k=1 ; k<nbs.size() ; k++){
-						last->next = new Neighbor(nbs[0].i, nbs[0].j, nbs[0].next);
+						last->next = new Neighbor(nbs[k].i, nbs[k].j, nbs[k].next);
+						last = last->next;
 					}
 				}
 
@@ -98,10 +99,15 @@ bool read_labyrinth(const char* filename, std::vector<std::vector<Node> > &nodes
 
 int main(){
 	std::vector<std::vector<Node> > nodes;
-	if(read_labyrinth("laby", nodes)){
+	if(read_labyrinth("labyrinth", nodes)){
 		for(int i=0 ; i<nodes.size() ; i++){
 			for(int j=0 ; j<nodes[i].size() ; j++){
 				std::cout << "[" << i << "][" << j << "] : " << nodes[i][j].neighbors << std::endl;
+				Neighbor* nb = nodes[i][j].first;
+				while(nb!=NULL){
+					std::cout << "\t[" << nb->i << "][" << nb->j << "]" << std::endl;
+					nb = nb->next;
+				}
 			}
 		}
 	}
