@@ -11,7 +11,7 @@ struct Node{
     Node(){
         this->neighbors = 0;
         this->first = NULL;
-        this->flag = -1;
+        this->flag = 0;
     }
 };
 

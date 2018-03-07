@@ -64,7 +64,16 @@ bool read_labyrinth(const char* filename, std::vector<std::vector<Node> > &nodes
     return false;
 }
 
-void free_memory(std::vector<std::vector<Node> > &nodes){
+void print(const std::vector<std::vector<Node> > &nodes, std::ostream &os){
+    for(int i=0 ; i<nodes.size() ; i++){
+        for(int j=0 ; j<nodes[i].size() ; j++){
+            os << (nodes[i][j].flag?" X ":" * ");
+        }
+        os << std::endl;
+    }
+}
+
+void free_memory(const std::vector<std::vector<Node> > &nodes){
     for(int i=0 ; i<nodes.size() ; i++){
         for(int j=0 ; j<nodes[i].size() ; j++){
             Neighbor* nb = nodes[i][j].first;
