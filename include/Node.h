@@ -6,12 +6,12 @@
 struct Node{
     int neighbors;
     Neighbor* first;
-    bool processed;
+    int flag;
 
     Node(){
         this->neighbors = 0;
         this->first = NULL;
-        this->processed = false;
+        this->flag = -1;
     }
 };
 
