@@ -10,7 +10,7 @@ struct Node{
 
     Node(){
         this->neighbors = 0;
-        this->first = NULL;
+        this->first = nullptr;
         this->flag = 0;
     }
 };

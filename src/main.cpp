@@ -7,7 +7,7 @@
 
 int main(int argc, char const *argv[]) {
 	std::vector<std::vector<Node> > nodes;
-	if(read_labyrinth("data/labyrinth2", nodes)){
+	if(read_labyrinth("data/labyrinth", nodes)){
 		DFS(nodes, 0, 0);
 		print(nodes, std::cout);
 		free_memory(nodes);

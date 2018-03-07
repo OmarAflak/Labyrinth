@@ -7,7 +7,7 @@ struct Neighbor{
 	Neighbor* next;
 
 	Neighbor(){
-		this->next = NULL;
+		this->next = nullptr;
 	}
 
 	Neighbor(int i, int j, Neighbor* next){

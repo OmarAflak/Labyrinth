@@ -1,7 +1,7 @@
 CC = g++
 ODIR = obj
 PROG = main
-CXXFLAG =
+CXXFLAG = -std=c++11
 
 $(PROG) : $(ODIR) $(ODIR)/$(PROG).o
 	$(CC) -o $@ $(ODIR)/$(PROG).o $(ODIR)/utils.o $(ODIR)/algorithm.o $(CXXFLAG)
