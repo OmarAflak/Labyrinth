@@ -3,16 +3,16 @@ ODIR = obj
 PROG = main
 CXXFLAG = -std=c++11
 
-$(PROG) : $(ODIR) $(ODIR)/$(PROG).o
-	$(CC) -o $@ $(ODIR)/$(PROG).o $(ODIR)/utils.o $(ODIR)/algorithm.o $(CXXFLAG)
+$(PROG) : $(ODIR) $(ODIR)/algorithm.o $(ODIR)/utils.o $(ODIR)/main.o 
+	$(CC) -o $@ $(ODIR)/algorithm.o $(ODIR)/utils.o $(ODIR)/main.o $(CXXFLAG)
 
-$(ODIR)/utils.o : ./src/utils.cpp ./include/utils.h ./include/Node.h
+$(ODIR)/algorithm.o : ./src/algorithm.cpp ./include/algorithm.h ./include/Node.h 
 	$(CC) -c $< -o $@ $(CXXFLAG)
 
-$(ODIR)/algorithm.o : ./src/algorithm.cpp ./include/algorithm.h ./include/Node.h
+$(ODIR)/utils.o : ./src/utils.cpp ./include/utils.h ./include/Node.h 
 	$(CC) -c $< -o $@ $(CXXFLAG)
 
-$(ODIR)/$(PROG).o : ./src/main.cpp $(ODIR)/utils.o $(ODIR)/algorithm.o
+$(ODIR)/main.o : ./src/main.cpp ./include/utils.h ./include/algorithm.h 
 	$(CC) -c $< -o $@ $(CXXFLAG)
 
 $(ODIR) :
@@ -22,3 +22,4 @@ $(ODIR) :
 clean :
 	if [ -d $(ODIR) ]; then rm $(ODIR) -r; fi
 	if [ -f $(PROG) ]; then rm $(PROG); fi
+
