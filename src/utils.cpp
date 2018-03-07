@@ -21,34 +21,34 @@ bool read_labyrinth(const char* filename, std::vector<std::vector<Node> > &nodes
     if(read_file(filename, lines)){
         int width = (lines[0].size()-1)/2;
         int height = (lines.size()-1)/2;
-        nodes.resize(width, std::vector<Node>(height, Node()));
+        nodes.resize(height, std::vector<Node>(width, Node()));
 
         int x=0, y=0;
 
         for(int i=1 ; i<lines.size() ; i+=2){
             for(int j=1 ; j<lines[i].size() ; j+=2){
-                std::vector<Neighbor> nbs;
+                std::vector<Neighbor*> nbs;
 
                 if(lines[i-1][j]==' '){
-                    nbs.push_back(Neighbor(x-1, y, NULL));
+                    nbs.push_back(new Neighbor(x-1, y, NULL));
                 }
                 if(lines[i+1][j]==' '){
-                    nbs.push_back(Neighbor(x+1, y, NULL));
+                    nbs.push_back(new Neighbor(x+1, y, NULL));
                 }
                 if(lines[i][j-1]==' '){
-                    nbs.push_back(Neighbor(x, y-1, NULL));
+                    nbs.push_back(new Neighbor(x, y-1, NULL));
                 }
                 if(lines[i][j+1]==' '){
-                    nbs.push_back(Neighbor(x, y+1, NULL));
+                    nbs.push_back(new Neighbor(x, y+1, NULL));
                 }
 
                 nodes[x][y].neighbors = nbs.size();
 
-                if(nodes[x][y].neighbors!=0){
-                    nodes[x][y].first = new Neighbor(nbs[0].i, nbs[0].j, nbs[0].next);
-                    Neighbor* last = nodes[x][y].first;
+                if(nodes[x][y].neighbors>0){
+                    Neighbor* last = nbs[0];
+                    nodes[x][y].first = last;
                     for(int k=1 ; k<nbs.size() ; k++){
-                        last->next = new Neighbor(nbs[k].i, nbs[k].j, nbs[k].next);
+                        last->next = nbs[k];
                         last = last->next;
                     }
                 }
@@ -78,7 +78,7 @@ void free_memory(const std::vector<std::vector<Node> > &nodes){
         for(int j=0 ; j<nodes[i].size() ; j++){
             Neighbor* nb = nodes[i][j].first;
             while(nb!=NULL){
-                Neighbor* tmp = nb->next;
+                Neighbor *tmp = nb->next;
                 delete nb;
                 nb = tmp;
             }
