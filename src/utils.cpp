@@ -30,33 +30,33 @@ bool read_labyrinth(const char* filename, std::vector<std::vector<Node> > &nodes
                 std::vector<Neighbor*> nbs;
 
                 if(lines[i-1][j]==' '){
-                    nbs.push_back(new Neighbor(x-1, y, NULL));
+                    nbs.push_back(new Neighbor(y-1, x, NULL));
                 }
                 if(lines[i+1][j]==' '){
-                    nbs.push_back(new Neighbor(x+1, y, NULL));
+                    nbs.push_back(new Neighbor(y+1, x, NULL));
                 }
                 if(lines[i][j-1]==' '){
-                    nbs.push_back(new Neighbor(x, y-1, NULL));
+                    nbs.push_back(new Neighbor(y, x-1, NULL));
                 }
                 if(lines[i][j+1]==' '){
-                    nbs.push_back(new Neighbor(x, y+1, NULL));
+                    nbs.push_back(new Neighbor(y, x+1, NULL));
                 }
 
-                nodes[x][y].neighbors = nbs.size();
+                nodes[y][x].neighbors = nbs.size();
 
-                if(nodes[x][y].neighbors>0){
+                if(nodes[y][x].neighbors>0){
                     Neighbor* last = nbs[0];
-                    nodes[x][y].first = last;
+                    nodes[y][x].first = last;
                     for(int k=1 ; k<nbs.size() ; k++){
                         last->next = nbs[k];
                         last = last->next;
                     }
                 }
 
-                y++;
+                x++;
             }
-            y=0;
-            x++;
+            x=0;
+            y++;
         }
 
         return true;
