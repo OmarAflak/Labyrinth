@@ -4,14 +4,16 @@
 #include "Neighbor.h"
 
 struct Node{
-    int neighbors;
     Neighbor* first;
-    int flag;
+    int neighbors;
+    bool processed;
+    char text;
 
     Node(){
-        this->neighbors = 0;
         this->first = nullptr;
-        this->flag = 0;
+        this->neighbors = 0;
+        this->processed = false;
+        this->text = ' ';
     }
 };
 
