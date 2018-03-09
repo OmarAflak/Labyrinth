@@ -86,6 +86,15 @@ void print(const std::vector<std::vector<Node> > &nodes, const std::vector<std::
     }
 }
 
+void reset(std::vector<std::vector<Node> > &nodes){
+    for(int i=0 ; i<nodes.size() ; i++){
+        for(int j=0 ; j<nodes[i].size() ; j++){
+            nodes[i][j].processed = false;
+            nodes[i][j].text = ' ';
+        }
+    }
+}
+
 void free_memory(const std::vector<std::vector<Node> > &nodes){
     for(int i=0 ; i<nodes.size() ; i++){
         for(int j=0 ; j<nodes[i].size() ; j++){

@@ -35,14 +35,14 @@ void BFS(std::vector<std::vector<Node> > &nodes, int i, int j){
         q.pop();
         Neighbor* nb = n->first;
         while(nb!=nullptr){
-            if(nodes[nb->i][nb->j].text=='O'){
-                return;
-            }
-
             if(!nodes[nb->i][nb->j].processed){
                 q.push(&nodes[nb->i][nb->j]);
                 nodes[nb->i][nb->j].processed = true;
                 nodes[nb->i][nb->j].text = (nodes[nb->i][nb->j].text==' '?'x':nodes[nb->i][nb->j].text);
+
+                if(nodes[nb->i][nb->j].text=='O'){
+                    return;
+                }
             }
             nb = nb->next;
         }
