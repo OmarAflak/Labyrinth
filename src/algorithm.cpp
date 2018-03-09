@@ -9,7 +9,7 @@ void DFS(std::vector<std::vector<Node> > &nodes, const Point& in, const Point& o
         s.pop();
         if(!node->processed){
             node->processed = true;
-            node->text = (node->text==' '?'x':node->text);
+            node->text = (node->text==UNMARKED?MARKED:node->text);
 
             Neighbor* nb = node->first;
             while(nb!=nullptr){
@@ -28,7 +28,7 @@ void BFS(std::vector<std::vector<Node> > &nodes, const Point& in, const Point& o
     std::queue<Node*> q;
     q.push(&nodes[in.y][in.x]);
     nodes[in.y][in.x].processed = true;
-    nodes[in.y][in.x].text = (nodes[in.y][in.x].text==' '?'x':nodes[in.y][in.x].text);
+    nodes[in.y][in.x].text = (nodes[in.y][in.x].text==UNMARKED?MARKED:nodes[in.y][in.x].text);
 
     while(!q.empty()){
         Node* n = q.front();
@@ -39,7 +39,7 @@ void BFS(std::vector<std::vector<Node> > &nodes, const Point& in, const Point& o
             if(!node->processed){
                 q.push(node);
                 node->processed = true;
-                node->text = (node->text==' '?'x':node->text);
+                node->text = (node->text==UNMARKED?MARKED:node->text);
 
                 if(nb->pos == out){
                     return;
@@ -57,7 +57,7 @@ bool findPath(std::vector<std::vector<Node> > &nodes, std::vector<Node> &path, c
 
     while(nb!=nullptr){
         Node* node = &nodes[nb->pos.y][nb->pos.x];
-        if(node->text=='x' && !node->processed){
+        if(node->text==MARKED && !node->processed){
             std::vector<Node> subpath;
             bool result = findPath(nodes, subpath, nb->pos, out);
             if(result){
