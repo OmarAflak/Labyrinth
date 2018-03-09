@@ -1,6 +1,6 @@
 #include "../include/utils.h"
 
-bool read_file(const char* filename, std::vector<std::string> &lines){
+bool readFile(const char* filename, std::vector<std::string> &lines){
     std::ifstream file(filename);
     if(file){
         std::string line;
@@ -17,8 +17,8 @@ bool read_file(const char* filename, std::vector<std::string> &lines){
     return false;
 }
 
-bool read_labyrinth(const char* filename, std::vector<std::vector<Node> > &nodes, std::vector<std::string> &labyrinth){
-    if(read_file(filename, labyrinth)){
+bool readLabyrinth(const char* filename, std::vector<std::vector<Node> > &nodes, std::vector<std::string> &labyrinth){
+    if(readFile(filename, labyrinth)){
         int width = (labyrinth[0].size()-1)/2;
         int height = (labyrinth.size()-1)/2;
         nodes.resize(height, std::vector<Node>(width, Node()));
@@ -86,16 +86,15 @@ void print(const std::vector<std::vector<Node> > &nodes, const std::vector<std::
     }
 }
 
-void reset(std::vector<std::vector<Node> > &nodes){
+void apply(std::vector<std::vector<Node> > &nodes, void (*change)(Node& node)){
     for(int h=0 ; h<nodes.size() ; h++){
         for(int w=0 ; w<nodes[h].size() ; w++){
-            nodes[h][w].processed = false;
-            nodes[h][w].text = ' ';
+            change(nodes[h][w]);
         }
     }
 }
 
-void free_memory(const std::vector<std::vector<Node> > &nodes){
+void freeMemory(const std::vector<std::vector<Node> > &nodes){
     for(int h=0 ; h<nodes.size() ; h++){
         for(int w=0 ; w<nodes[h].size() ; w++){
             Neighbor* nb = nodes[h][w].first;
