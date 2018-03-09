@@ -50,23 +50,34 @@ void BFS(std::vector<std::vector<Node> > &nodes, const Point& in, const Point& o
     }
 }
 
-bool findPath(std::vector<std::vector<Node> > &nodes, std::vector<Node> &path, const Point& in, const Point& out){
-    path.push_back(nodes[in.y][in.x]);
-    Neighbor* nb = nodes[in.y][in.x].first;
+bool findPath(std::vector<std::vector<Node> > &nodes, std::vector<std::vector<Node> > &path, const Point& in, const Point& out){
+    if(path.size()==0){
+        path.resize(nodes.size(), std::vector<Node> (nodes[0].size(), Node()));
+    }
+
     nodes[in.y][in.x].processed = true;
+    path[in.y][in.x] = nodes[in.y][in.x];
+    Neighbor* nb = nodes[in.y][in.x].first;
 
     while(nb!=nullptr){
         Node* node = &nodes[nb->pos.y][nb->pos.x];
         if(node->text==MARKED && !node->processed){
-            std::vector<Node> subpath;
-            bool result = findPath(nodes, subpath, nb->pos, out);
-            if(result){
-                path.insert(path.end(), subpath.begin(), subpath.end());
+            std::vector<std::vector<Node> > subpath;
+            bool found = findPath(nodes, subpath, nb->pos, out);
+            if(found){
+                // if subpath reached the target then fuse both arrays
+                for(int h=0 ; h<path.size() ; h++){
+                    for(int w=0 ; w<path[h].size() ; w++){
+                        if(!path[h][w].processed){
+                            path[h][w] = subpath[h][w];
+                        }
+                    }
+                }
+                return found;
             }
-            return result;
         }
         else if(nb->pos==out){
-            path.push_back(*node);
+            path[nb->pos.y][nb->pos.x] = *node;
             return true;
         }
         nb = nb->next;

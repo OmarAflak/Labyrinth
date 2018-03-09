@@ -10,10 +10,9 @@ void unprocess(Node& node){
 }
 
 int main(int argc, char const *argv[]) {
-	std::vector<std::vector<Node> > nodes;
+	std::vector<std::vector<Node> > nodes, path;
 	std::vector<std::string> labyrinth;
-	std::vector<Node> path;
-	const char* filepath = "./data/labyrinth3";
+	const char* filepath = "./data/labyrinth";
 
 	if(readLabyrinth(filepath, nodes, labyrinth)){
 		Point in(0, 0);
@@ -22,7 +21,7 @@ int main(int argc, char const *argv[]) {
 		BFS(nodes, in, out);
 		apply(nodes, unprocess);
 		if(findPath(nodes, path, in, out)){
-			print(nodes, labyrinth, std::cout);
+			print(path, labyrinth, std::cout);
 		}
 		freeMemory(nodes);
 	}
