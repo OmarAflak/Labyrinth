@@ -7,6 +7,7 @@
 #include <iostream>
 
 #include "Node.h"
+#include "Point.h"
 
 bool read_file(const char* filename, std::vector<std::string> &lines);
 bool read_labyrinth(const char* filename, std::vector<std::vector<Node> > &nodes, std::vector<std::string> &labyrinth);

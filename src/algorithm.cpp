@@ -1,8 +1,8 @@
 #include "../include/algorithm.h"
 
-void DFS(std::vector<std::vector<Node> > &nodes, int i, int j){
+void DFS(std::vector<std::vector<Node> > &nodes, Point in, Point out){
     std::stack<Node*> s;
-    s.push(&nodes[i][j]);
+    s.push(&nodes[in.y][in.x]);
 
     while(!s.empty()){
         Node* node = s.top();
@@ -11,40 +11,45 @@ void DFS(std::vector<std::vector<Node> > &nodes, int i, int j){
             node->processed = true;
             node->text = (node->text==' '?'x':node->text);
 
-            if(node->text=='O'){
-                return;
-            }
-
             Neighbor* nb = node->first;
             while(nb!=nullptr){
-                s.push(&nodes[nb->i][nb->j]);
+                if(nb->pos == out){
+                    return;
+                }
+                
+                s.push(&nodes[nb->pos.y][nb->pos.x]);
                 nb = nb->next;
             }
         }
     }
 }
 
-void BFS(std::vector<std::vector<Node> > &nodes, int i, int j){
+void BFS(std::vector<std::vector<Node> > &nodes, Point in, Point out){
     std::queue<Node*> q;
-    q.push(&nodes[i][j]);
-    nodes[i][j].processed = true;
-    nodes[i][j].text = (nodes[i][j].text==' '?'x':nodes[i][j].text);
+    q.push(&nodes[in.y][in.x]);
+    nodes[in.y][in.x].processed = true;
+    nodes[in.y][in.x].text = (nodes[in.y][in.x].text==' '?'x':nodes[in.y][in.x].text);
 
     while(!q.empty()){
         Node* n = q.front();
         q.pop();
         Neighbor* nb = n->first;
         while(nb!=nullptr){
-            if(!nodes[nb->i][nb->j].processed){
-                q.push(&nodes[nb->i][nb->j]);
-                nodes[nb->i][nb->j].processed = true;
-                nodes[nb->i][nb->j].text = (nodes[nb->i][nb->j].text==' '?'x':nodes[nb->i][nb->j].text);
+            Node* node = &nodes[nb->pos.y][nb->pos.x];
+            if(!node->processed){
+                q.push(node);
+                node->processed = true;
+                node->text = (node->text==' '?'x':node->text);
 
-                if(nodes[nb->i][nb->j].text=='O'){
+                if(nb->pos == out){
                     return;
                 }
             }
             nb = nb->next;
         }
     }
+}
+
+std::vector<Node> findPath(std::vector<std::vector<Node> > &nodes, Point in, Point out){
+
 }

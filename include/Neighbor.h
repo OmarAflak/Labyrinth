@@ -1,18 +1,18 @@
 #ifndef NEIGHBOR
 #define NEIGHBOR
 
+#include "Point.h"
+
 struct Neighbor{
-	int i;
-	int j;
+	Point pos;
 	Neighbor* next;
 
 	Neighbor(){
 		this->next = nullptr;
 	}
 
-	Neighbor(int i, int j, Neighbor* next){
-		this->i = i;
-		this->j = j;
+	Neighbor(Point pos, Neighbor* next){
+		this->pos = pos;
 		this->next = next;
 	}
 };

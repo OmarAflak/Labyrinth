@@ -11,7 +11,10 @@ int main(int argc, char const *argv[]) {
 	const char* filepath = "./data/labyrinth3";
 
 	if(read_labyrinth(filepath, nodes, labyrinth)){
-		DFS(nodes, 0, 0);
+		Point in(0, 0);
+		Point out(nodes[0].size()-1, nodes.size()-1);
+
+		BFS(nodes, in, out);
 		print(nodes, labyrinth, std::cout);
 		free_memory(nodes);
 	}

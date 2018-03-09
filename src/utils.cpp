@@ -25,25 +25,25 @@ bool read_labyrinth(const char* filename, std::vector<std::vector<Node> > &nodes
 
         int x=0, y=0;
 
-        for(int i=1 ; i<labyrinth.size() ; i+=2){
-            for(int j=1 ; j<labyrinth[i].size() ; j+=2){
+        for(int h=1 ; h<labyrinth.size() ; h+=2){
+            for(int w=1 ; w<labyrinth[h].size() ; w+=2){
                 std::vector<Neighbor*> nbs;
 
-                if(labyrinth[i-1][j]==' '){
-                    nbs.push_back(new Neighbor(y-1, x, NULL));
+                if(labyrinth[h-1][w]==' '){
+                    nbs.push_back(new Neighbor(Point(x, y-1), NULL));
                 }
-                if(labyrinth[i+1][j]==' '){
-                    nbs.push_back(new Neighbor(y+1, x, NULL));
+                if(labyrinth[h+1][w]==' '){
+                    nbs.push_back(new Neighbor(Point(x, y+1), NULL));
                 }
-                if(labyrinth[i][j-1]==' '){
-                    nbs.push_back(new Neighbor(y, x-1, NULL));
+                if(labyrinth[h][w-1]==' '){
+                    nbs.push_back(new Neighbor(Point(x-1, y), NULL));
                 }
-                if(labyrinth[i][j+1]==' '){
-                    nbs.push_back(new Neighbor(y, x+1, NULL));
+                if(labyrinth[h][w+1]==' '){
+                    nbs.push_back(new Neighbor(Point(x+1, y), NULL));
                 }
 
                 nodes[y][x].neighbors = nbs.size();
-                nodes[y][x].text = labyrinth[i][j];
+                nodes[y][x].text = labyrinth[h][w];
 
                 if(nodes[y][x].neighbors>0){
                     Neighbor* last = nbs[0];
@@ -67,19 +67,19 @@ bool read_labyrinth(const char* filename, std::vector<std::vector<Node> > &nodes
 
 void print(const std::vector<std::vector<Node> > &nodes, const std::vector<std::string> &labyrinth, std::ostream &os){
     int x=0, y=0;
-    for(int i=0 ; i<labyrinth.size() ; i++){
-        for(int j=0 ; j<labyrinth[i].size() ; j++){
-            if(i%2!=0 && j%2!=0){
+    for(int h=0 ; h<labyrinth.size() ; h++){
+        for(int w=0 ; w<labyrinth[h].size() ; w++){
+            if(h%2!=0 && w%2!=0){
                 os << nodes[y][x].text;
                 x++;
             }
             else{
-                os << labyrinth[i][j];
+                os << labyrinth[h][w];
             }
         }
         os << std::endl;
 
-        if(i%2!=0){
+        if(h%2!=0){
             x=0;
             y++;
         }
@@ -87,18 +87,18 @@ void print(const std::vector<std::vector<Node> > &nodes, const std::vector<std::
 }
 
 void reset(std::vector<std::vector<Node> > &nodes){
-    for(int i=0 ; i<nodes.size() ; i++){
-        for(int j=0 ; j<nodes[i].size() ; j++){
-            nodes[i][j].processed = false;
-            nodes[i][j].text = ' ';
+    for(int h=0 ; h<nodes.size() ; h++){
+        for(int w=0 ; w<nodes[h].size() ; w++){
+            nodes[h][w].processed = false;
+            nodes[h][w].text = ' ';
         }
     }
 }
 
 void free_memory(const std::vector<std::vector<Node> > &nodes){
-    for(int i=0 ; i<nodes.size() ; i++){
-        for(int j=0 ; j<nodes[i].size() ; j++){
-            Neighbor* nb = nodes[i][j].first;
+    for(int h=0 ; h<nodes.size() ; h++){
+        for(int w=0 ; w<nodes[h].size() ; w++){
+            Neighbor* nb = nodes[h][w].first;
             while(nb!=NULL){
                 Neighbor *tmp = nb->next;
                 delete nb;
