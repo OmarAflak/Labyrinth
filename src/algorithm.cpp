@@ -16,7 +16,7 @@ void DFS(std::vector<std::vector<Node> > &nodes, Point in, Point out){
                 if(nb->pos == out){
                     return;
                 }
-                
+
                 s.push(&nodes[nb->pos.y][nb->pos.x]);
                 nb = nb->next;
             }
@@ -48,8 +48,4 @@ void BFS(std::vector<std::vector<Node> > &nodes, Point in, Point out){
             nb = nb->next;
         }
     }
-}
-
-std::vector<Node> findPath(std::vector<std::vector<Node> > &nodes, Point in, Point out){
-
 }
