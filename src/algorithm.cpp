@@ -14,6 +14,7 @@ void DFS(std::vector<std::vector<Node> > &nodes, const Point& in, const Point& o
             Neighbor* nb = node->first;
             while(nb!=nullptr){
                 if(nb->pos == out){
+                    apply(nodes, unprocess);
                     return;
                 }
 
@@ -22,6 +23,8 @@ void DFS(std::vector<std::vector<Node> > &nodes, const Point& in, const Point& o
             }
         }
     }
+
+    apply(nodes, unprocess);
 }
 
 void BFS(std::vector<std::vector<Node> > &nodes, const Point& in, const Point& out){
@@ -42,12 +45,15 @@ void BFS(std::vector<std::vector<Node> > &nodes, const Point& in, const Point& o
                 node->text = (node->text==UNMARKED?MARKED:node->text);
 
                 if(nb->pos == out){
+                    apply(nodes, unprocess);
                     return;
                 }
             }
             nb = nb->next;
         }
     }
+
+    apply(nodes, unprocess);
 }
 
 bool findPath(std::vector<std::vector<Node> > &nodes, std::vector<std::vector<Node> > &path, const Point& in, const Point& out){

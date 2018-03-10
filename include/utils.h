@@ -13,6 +13,7 @@ bool readFile(const char* filename, std::vector<std::string> &lines);
 bool readLabyrinth(const char* filename, std::vector<std::vector<Node> > &nodes, std::vector<std::string> &labyrinth);
 void print(const std::vector<std::vector<Node> > &nodes, const std::vector<std::string> &labyrinth, std::ostream &os);
 void apply(std::vector<std::vector<Node> > &nodes, void (*change)(Node& node));
+void unprocess(Node& node);
 void freeMemory(const std::vector<std::vector<Node> > &nodes);
 
 #endif

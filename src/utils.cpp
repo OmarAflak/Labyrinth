@@ -94,6 +94,10 @@ void apply(std::vector<std::vector<Node> > &nodes, void (*change)(Node& node)){
     }
 }
 
+void unprocess(Node& node){
+	node.processed = false;
+}
+
 void freeMemory(const std::vector<std::vector<Node> > &nodes){
     for(int h=0 ; h<nodes.size() ; h++){
         for(int w=0 ; w<nodes[h].size() ; w++){

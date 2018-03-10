@@ -5,7 +5,7 @@
 #include <queue>
 #include <stack>
 
-#include "Node.h"
+#include "utils.h"
 
 static const char MARKED = 'x';
 static const char UNMARKED = ' ';
