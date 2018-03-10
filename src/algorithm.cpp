@@ -67,7 +67,11 @@ bool findPath(std::vector<std::vector<Node> > &nodes, std::vector<std::vector<No
 
     while(nb!=nullptr){
         Node* node = &nodes[nb->pos.y][nb->pos.x];
-        if(node->text==MARKED && !node->processed){
+        if(nb->pos==out){
+            path[nb->pos.y][nb->pos.x] = *node;
+            return true;
+        }
+        else if(node->text==MARKED && !node->processed){
             std::vector<std::vector<Node> > subpath;
             bool found = findPath(nodes, subpath, nb->pos, out);
             if(found){
@@ -82,12 +86,27 @@ bool findPath(std::vector<std::vector<Node> > &nodes, std::vector<std::vector<No
                 return found;
             }
         }
-        else if(nb->pos==out){
-            path[nb->pos.y][nb->pos.x] = *node;
-            return true;
-        }
         nb = nb->next;
     }
 
     return false;
+}
+
+bool findIO(const std::vector<std::vector<Node> > &nodes, Point& in, Point& out){
+    int foundIn=false, foundOut=false;
+
+    for(int h=0 ; h<nodes.size() ; h++){
+        for(int w=0 ; w<nodes[h].size() ; w++){
+            if(nodes[h][w].text==IN){
+                in = Point(w,h);
+                foundIn = true;
+            }
+            else if(nodes[h][w].text==OUT){
+                out = Point(w,h);
+                foundOut = true;
+            }
+        }
+    }
+
+    return (foundIn && foundOut);
 }
