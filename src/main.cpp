@@ -21,7 +21,7 @@ int main(int argc, char const *argv[]) {
 			}
 		}
 		else{
-			std::cerr << "Cound not find IO in labyrinth" << std::endl;
+			std::cerr << "Cound not find unique I/O pair" << std::endl;
 		}
 		freeMemory(nodes);
 		return 0;

@@ -93,20 +93,20 @@ bool findPath(std::vector<std::vector<Node> > &nodes, std::vector<std::vector<No
 }
 
 bool findIO(const std::vector<std::vector<Node> > &nodes, Point& in, Point& out){
-    int foundIn=false, foundOut=false;
+    int found = 0;
 
     for(int h=0 ; h<nodes.size() ; h++){
         for(int w=0 ; w<nodes[h].size() ; w++){
             if(nodes[h][w].text==IN){
                 in = Point(w,h);
-                foundIn = true;
+                found++;
             }
             else if(nodes[h][w].text==OUT){
                 out = Point(w,h);
-                foundOut = true;
+                found++;
             }
         }
     }
 
-    return (foundIn && foundOut);
+    return (found==2);
 }
