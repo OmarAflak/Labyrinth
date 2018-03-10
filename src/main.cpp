@@ -16,6 +16,14 @@ int main(int argc, char const *argv[]) {
 			if(findPath(nodes, path, in, out)){
 				print(path, labyrinth, std::cout);
 			}
+			else{
+				std::cout << "Could not find path" << std::endl;
+				return 1;
+			}
+		}
+		else{
+			std::cerr << "Cound not find IO in labyrinth" << std::endl;
+			return 1;
 		}
 		freeMemory(nodes);
 	}
@@ -23,5 +31,6 @@ int main(int argc, char const *argv[]) {
 		std::cerr << "Could not read " << filepath << std::endl;
 		return 1;
 	}
+
 	return 0;
 }
