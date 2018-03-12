@@ -3,16 +3,16 @@ ODIR = obj
 PROG = labyrinth
 CXXFLAG = -std=c++11
 
-$(PROG) : $(ODIR) $(ODIR)/algorithm.o $(ODIR)/utils.o $(ODIR)/main.o
+$(PROG) : $(ODIR) $(ODIR)/algorithm.o $(ODIR)/utils.o $(ODIR)/main.o 
 	$(CC) -o $@ $(ODIR)/algorithm.o $(ODIR)/utils.o $(ODIR)/main.o $(CXXFLAG)
 
-$(ODIR)/algorithm.o : ./src/algorithm.cpp ./include/algorithm.h
+$(ODIR)/algorithm.o : ./src/algorithm.cpp ./include/algorithm.h ./include/utils.h ./include/Node.h ./include/Neighbor.h ./include/Point.h ./include/Point.h 
 	$(CC) -c $< -o $@ $(CXXFLAG)
 
-$(ODIR)/utils.o : ./src/utils.cpp ./include/utils.h ./include/Node.h ./include/Point.h
+$(ODIR)/utils.o : ./src/utils.cpp ./include/utils.h ./include/Node.h ./include/Neighbor.h ./include/Point.h ./include/Point.h 
 	$(CC) -c $< -o $@ $(CXXFLAG)
 
-$(ODIR)/main.o : ./src/main.cpp ./include/utils.h ./include/algorithm.h
+$(ODIR)/main.o : ./src/main.cpp ./include/algorithm.h 
 	$(CC) -c $< -o $@ $(CXXFLAG)
 
 $(ODIR) :
@@ -22,3 +22,4 @@ $(ODIR) :
 clean :
 	if [ -d $(ODIR) ]; then rm $(ODIR) -r; fi
 	if [ -f $(PROG) ]; then rm $(PROG); fi
+
