@@ -1,7 +1,7 @@
 CC = g++
 ODIR = obj
 PROG = labyrinth
-CXXFLAG = -std=c++11
+CXXFLAG = -std=c+11
 
 $(PROG) : $(ODIR) $(ODIR)/algorithm.o $(ODIR)/utils.o $(ODIR)/main.o 
 	$(CC) -o $@ $(ODIR)/algorithm.o $(ODIR)/utils.o $(ODIR)/main.o $(CXXFLAG)

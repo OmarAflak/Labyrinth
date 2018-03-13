@@ -98,11 +98,17 @@ void unprocess(Node& node){
 	node.processed = false;
 }
 
+void unmark(Node& node){
+    if(node.text==MARKED){
+        node.text = UNMARKED;
+    }
+}
+
 void freeMemory(const std::vector<std::vector<Node> > &nodes){
     for(int h=0 ; h<nodes.size() ; h++){
         for(int w=0 ; w<nodes[h].size() ; w++){
             Neighbor* nb = nodes[h][w].first;
-            while(nb!=NULL){
+            while(nb){
                 Neighbor *tmp = nb->next;
                 delete nb;
                 nb = tmp;

@@ -10,7 +10,7 @@ struct Node{
     char text;
 
     Node(){
-        this->first = nullptr;
+        this->first = NULL;
         this->neighbors = 0;
         this->processed = false;
         this->text = ' ';

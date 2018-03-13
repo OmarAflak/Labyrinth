@@ -8,7 +8,7 @@ struct Neighbor{
 	Neighbor* next;
 
 	Neighbor(){
-		this->next = nullptr;
+		this->next = NULL;
 	}
 
 	Neighbor(Point pos, Neighbor* next){
